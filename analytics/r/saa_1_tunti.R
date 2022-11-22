@@ -28,6 +28,35 @@ saa_data <- dplyr::tbl(data_conn, "SAA_1H") %>%
 
 show_query(saa_data)
 
-saa <- collect(saa_data)
+# Haetaan data koneen muistiin
+saa <- as.data.frame(saa_data)
 
 head(saa)
+sapply(saa, class)
+
+saa$LAMPOTILA <- as.numeric(saa$LAMPOTILA)
+saa$LAMPOTILA_MAKSIMI <- as.numeric(saa$LAMPOTILA_MAKSIMI)
+saa$LAMPOTILA_MINIMI <- as.numeric(saa$LAMPOTILA_MINIMI)
+
+head(saa)
+sapply(saa, class)
+
+
+ggplot(data=saa, aes(x=AIKA, y=LAMPOTILA)) +
+  geom_line(color="red") +
+  labs(
+    title = "Lämpötila",
+    subtitle = "Joulukuu 2021",
+    caption = "Lämpötilan keskiarvo tunneittain joulukuussa 2021. (Ilmatieteenlaitos, 11/2022)"
+  )
+
+
+#Tehdään taulukko lämpötilamittaustulosten lukumääristä
+
+lampotila_bar <- ggplot(data=saa, aes(x=round(LAMPOTILA))) +
+  geom_bar(fill="light blue") +
+  theme_dark() + 
+  geom_vline(xintercept=mean(saa$LAMPOTILA), color="red") + 
+  geom_vline(xintercept=median(saa$LAMPOTILA), color="dark red")       
+
+lampotila_bar       
