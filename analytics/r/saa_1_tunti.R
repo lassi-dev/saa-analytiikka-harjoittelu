@@ -48,7 +48,8 @@ ggplot(data=saa, aes(x=AIKA, y=LAMPOTILA)) +
     title = "Lämpötila",
     subtitle = "Joulukuu 2021",
     caption = "Lämpötilan keskiarvo tunneittain joulukuussa 2021. (Ilmatieteenlaitos, 11/2022)"
-  )
+  ) +
+  scale_y_continuous(breaks = seq.POSIXt(as.POSIXct(aika_alku), as.POSIXct(aika_loppu), by=as.POSIXct(1)))
 
 
 #Tehdään taulukko lämpötilamittaustulosten lukumääristä
