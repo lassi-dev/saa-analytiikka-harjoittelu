@@ -3,11 +3,11 @@ GO
 
 DECLARE @xmlSaaData XML;
 SET @xmlSaaData = (
-  SELECT XML from SAA_XML AS xmlSaaData where ID = 12
+  SELECT XML from SAATIEDOT_XML AS xmlSaaData where ID = 12
 );
 
 WITH XMLNAMESPACES ('http://www.opengis.net/wfs/2.0' as wfs, 'http://xml.fmi.fi/schema/wfs/2.0' as BsWfs, 'http://www.opengis.net/gml/3.2' as gml )
-INSERT INTO [SAA_RAAKA] (PAIKKA, AIKA, PARAMETRIN_NIMI, PARAMETRIN_ARVO)
+INSERT INTO [SAATIEDOT_RAAKA] (PAIKKA, AIKA, PARAMETRIN_NIMI, PARAMETRIN_ARVO)
 SELECT
   ref.value('BsWfs:Location[1]/gml:Point[1]/gml:pos[1]', 'VARCHAR(30)') AS PAIKKA ,
   ref.value('BsWfs:Time[1]', 'datetime') AS AIKA,
